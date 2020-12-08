@@ -1,11 +1,14 @@
 class PrototypesController < ApplicationController
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index, :show]
+  protect_from_forgery with: :null_session
 
   def index
     @prototypes = Prototype.all.order(id: "DESC")
   end
   def show
     @prototype = Prototype.find(params[:id])
+    @comment = @prototype.comment.new(comment_params)
+    @comments = @prototype.comments.includes(:user)
   end
 
   def  new
@@ -55,5 +58,4 @@ class PrototypesController < ApplicationController
   def move_to_index
     redirect_to action: "index" unless user_signed_in?
   end
-
 end
