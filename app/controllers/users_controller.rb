@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
  
   def index
+    @users = User.all
   end
 
   def edit
+    user = User.find(params[:id])
   end
 
   def new
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    user.destroy    
+    user.destroy
   end
 
   def update
@@ -32,5 +34,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :occupation, :profile, :position)
+    params.require(:user).permit(:name, :occupation, :profile, :position).merge(user_id:  params[:user_id])
+  end
 end
