@@ -1,4 +1,5 @@
 class PrototypesController < ApplicationController
+  before_action :authenticate_user!, only: [:show,:index,:new]
   before_action :move_to_index, except: [:index, :show]
   protect_from_forgery with: :null_session
 
