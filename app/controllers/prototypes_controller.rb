@@ -1,11 +1,12 @@
 class PrototypesController < ApplicationController
-  before_action :authenticate_user!, only: [:show,:index,:new]
+  before_action :authenticate_user!, except: [:show, :index, :new]
   before_action :move_to_index, except: [:index, :show]
   protect_from_forgery with: :null_session
 
   def index
     @prototypes = Prototype.all.order(id: "DESC")
   end
+
   def show
     @prototype = Prototype.find(params[:id])
     @comment = Comment.new
@@ -18,6 +19,7 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
+
       unless @prototype.user_id == current_user.id
         #ユーザーではない人にeditさせない処理
       end
@@ -50,7 +52,7 @@ class PrototypesController < ApplicationController
       render:edit
     end
   end
-  
+
   private
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)

@@ -18,4 +18,11 @@ class UsersController < ApplicationController
       redirect_to action: :index
     end
   end
+
+  def ensure_correct_user
+    if @current_user.id !=  params[:id].to_i
+     redirect_to("/posts/index")
+    end
+  end
+
 end
