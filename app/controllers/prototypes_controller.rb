@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index, :new]
+  before_action :authenticate_user!, except: [:show, :index, :edit]
   before_action :move_to_index, except: [:index, :show]
   protect_from_forgery with: :null_session
 
@@ -19,7 +19,7 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
-
+    redirect_to root_path
       unless @prototype.user_id == current_user.id
         #ユーザーではない人にeditさせない処理
       end
@@ -39,7 +39,6 @@ class PrototypesController < ApplicationController
     if @prototype.save
       redirect_to root_path(@prototype)
     else
-      @prototype = prototype.includes(:user)
       render :new
     end
   end

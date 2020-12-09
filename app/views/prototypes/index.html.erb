@@ -3,8 +3,8 @@
   <% if user_signed_in? %>
     <%# ログインしているときは以下を表示する %>
       <div class="greeting">
-        <%= "おいでやす、" %>
-        <%= link_to current_user.name + "様", user_path(current_user), class: :greeting__link%>
+        <%= "こんにちわ、" %>
+        <%= link_to current_user.name + "さん", user_path(current_user), class: :greeting__link%>
       </div>
     <%# // ログインしているときは上記を表示する %>
     <% end %>
