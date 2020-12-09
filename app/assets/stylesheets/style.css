@@ -228,6 +228,7 @@ a {
 .comments_list{
   list-style-type: square;
   padding-bottom: 5px;
+  list-style: square;
 }
 
 .comment_user{
