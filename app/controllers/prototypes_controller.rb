@@ -19,10 +19,12 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
-    redirect_to root_path
+    if user_signed_in? && current_user.id == @prototype.user_id
+    #redirect_to root_path
       unless @prototype.user_id == current_user.id
         #ユーザーではない人にeditさせない処理
-      end
+     end
+    end
   end
 
   def destroy
